@@ -223,10 +223,12 @@
       currentLeft -= 1.2;
       enemy.style.left = currentLeft + 'px';
 
-      if (currentLeft <= 100) {
+      if (currentLeft <= 100 && !enemy.dataset.atacou) {
+        enemy.dataset.atacou = "true";
         atacar(enemy);
         enemies.splice(index, 1);
       }
+
 
       if (currentLeft < -60) {
         enemy.remove();
