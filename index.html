@@ -271,12 +271,7 @@ setTimeout(() => enemy.remove(), 300);
   }, 200);
 }
 
-// Teste direto: cria um inimigo parado na tela
-const testEnemy = document.createElement('img');
-testEnemy.src = 'assets/zumbi.gif';
-testEnemy.classList.add('enemy');
-testEnemy.style.left = '150px';
-game.appendChild(testEnemy);
+
 
   function gameLoop() {
     moveEnemies();
