@@ -45,7 +45,7 @@
 
     .bridge-container {
       position: absolute;
-      bottom: 25vh;
+      bottom: 20vh;
       width: 200%;
       height: 10vh;
       z-index: 1;
@@ -68,8 +68,8 @@
 
     #stickman {
       position: absolute;
-      bottom: 27vh;
-      left: 10vw;
+      bottom: 22vh;
+      left: 30vw;
       width: 8vw;
       height: auto;
       z-index: 2;
@@ -78,7 +78,7 @@
 
     .enemy {
       position: absolute;
-      bottom: 27vh;
+      bottom: 22vh;
       width: 7vw;
       height: auto;
       z-index: 2;
@@ -183,7 +183,7 @@
       const enemy = document.createElement('img');
       enemy.src = 'assets/zumbi.gif';
       enemy.classList.add('enemy');
-      const spacing = 10; // em vw
+      const spacing = 10;
       enemy.style.left = (100 + i * spacing) + 'vw';
       game.appendChild(enemy);
       enemies.push(enemy);
@@ -193,10 +193,10 @@
   function moveEnemies() {
     enemies.forEach((enemy, index) => {
       let currentLeft = parseFloat(enemy.style.left);
-      currentLeft -= 0.5; // velocidade
+      currentLeft -= 0.5;
       enemy.style.left = currentLeft + 'vw';
 
-      if (currentLeft <= 12) {
+      if (currentLeft <= 32) {
         atacar(enemy);
         enemies.splice(index, 1);
       }
