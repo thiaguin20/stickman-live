@@ -281,7 +281,8 @@ setTimeout(() => enemy.remove(), 300);
   gameLoop();
 </script>
 <script>
-  const socket = new WebSocket('ws://192.168.0.8:8080');
+  const socket = new WebSocket('wss://fa6b7a1f3eb5.ngrok-free.app');
+
 
 
   socket.onmessage = event => {
@@ -297,4 +298,5 @@ setTimeout(() => enemy.remove(), 300);
 
 </body>
 </html>
+
 
