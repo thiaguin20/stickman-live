@@ -7,19 +7,26 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
       width: 100vw;
-      overflow: hidden;
+      height: 100vh;
       background: black;
-      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
 
     #game {
       position: relative;
-      width: 100vw;
-      height: 100vh;
+      width: 360px;
+      height: 640px;
       background: black;
       overflow: hidden;
+      image-rendering: pixelated;
+    }
+
+    #game, img {
+      image-rendering: pixelated;
     }
 
     #stars-wrapper {
@@ -45,17 +52,17 @@
 
     .bridge-container {
       position: absolute;
-      bottom: 20vh;
+      bottom: 100px;
       width: 200%;
-      height: 10vh;
+      height: 80px;
       z-index: 1;
       display: flex;
       animation: moveBridge 4s linear infinite;
     }
 
     .bridge {
-      width: 100vw;
-      height: 10vh;
+      width: 360px;
+      height: 80px;
       background: url('assets/ponte.png') no-repeat;
       background-size: cover;
       flex-shrink: 0;
@@ -63,24 +70,22 @@
 
     @keyframes moveBridge {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-100vw); }
+      100% { transform: translateX(-360px); }
     }
 
     #stickman {
       position: absolute;
-      bottom: 22vh;
-      left: 30vw;
-      width: 8vw;
-      height: auto;
+      bottom: 127px;
+      left: 150px;
+      width: 60px;
       z-index: 2;
       filter: drop-shadow(0 0 10px white);
     }
 
     .enemy {
       position: absolute;
-      bottom: 22vh;
-      width: 7vw;
-      height: auto;
+      bottom: 127px;
+      width: 50px;
       z-index: 2;
     }
 
@@ -97,26 +102,27 @@
 
     #score {
       position: absolute;
-      top: 5vh;
-      left: 3vw;
+      top: 480px;
+      width: 100%;
+      text-align: center;
       color: white;
-      font-size: 2.5vh;
+      font-size: 20px;
       z-index: 3;
     }
 
     #reward-bar {
       position: absolute;
-      top: 10vh;
-      left: 0;
+      top: 520px;
       width: 100%;
-      height: 4vh;
+      height: 35px;
       background: rgba(0, 0, 0, 0.7);
       color: white;
-      font-size: 2vh;
-      line-height: 4vh;
+      font-size: 14px;
+      line-height: 35px;
       overflow: hidden;
       white-space: nowrap;
       z-index: 4;
+      text-align: center;
     }
 
     #reward-bar span {
@@ -126,7 +132,7 @@
     }
 
     #reward-bar span > img {
-      height: 2.5vh;
+      height: 22px;
       vertical-align: middle;
       margin: 0 6px;
     }
@@ -157,7 +163,7 @@
 
   <div id="reward-bar">
     <span>
-      ❤️ 100 curtidas = 1 zumbi • 👤 Seguidor = 1 zumbi • <img src="assets/rosa.png" alt="rosa"> = 2 zumbis • <img src="assets/coracodedo.png" alt=""> = 3 zumbis • <img src="assets/dino_pequeno.png" alt=""> = 5 zumbis • <img src="assets/rosquinha.png" alt=""> = 10 zumbis • <img src="assets/bola.png" alt=""> = 15 zumbis • <img src="assets/corgi.png" alt=""> = 20 zumbis • <img src="assets/arma.png" alt=""> = 30 zumbis • <img src="assets/galaxia.png" alt=""> = 50 zumbis
+      ❤️ 100 curtidas = 1 zumbi • 👤 Seguidor = 1 zumbi • <img src="assets/rosa.png"> = 2 zumbis • <img src="assets/coracodedo.png"> = 3 zumbis • <img src="assets/dino_pequeno.png"> = 5 zumbis • <img src="assets/rosquinha.png"> = 10 zumbis • <img src="assets/bola.png"> = 15 zumbis • <img src="assets/corgi.png"> = 20 zumbis • <img src="assets/arma.png"> = 30 zumbis • <img src="assets/galaxia.png"> = 50 zumbis
     </span>
   </div>
 
@@ -183,8 +189,8 @@
       const enemy = document.createElement('img');
       enemy.src = 'assets/zumbi.gif';
       enemy.classList.add('enemy');
-      const spacing = 10;
-      enemy.style.left = (100 + i * spacing) + 'vw';
+      const spacing = 60;
+      enemy.style.left = (360 + i * spacing) + 'px';
       game.appendChild(enemy);
       enemies.push(enemy);
     }
@@ -193,15 +199,15 @@
   function moveEnemies() {
     enemies.forEach((enemy, index) => {
       let currentLeft = parseFloat(enemy.style.left);
-      currentLeft -= 0.5;
-      enemy.style.left = currentLeft + 'vw';
+      currentLeft -= 1.2;
+      enemy.style.left = currentLeft + 'px';
 
-      if (currentLeft <= 32) {
+      if (currentLeft <= 100) {
         atacar(enemy);
         enemies.splice(index, 1);
       }
 
-      if (currentLeft < -10) {
+      if (currentLeft < -60) {
         enemy.remove();
         enemies.splice(index, 1);
       }
