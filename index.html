@@ -203,23 +203,27 @@
     }
   }
 
-  function moveEnemies() {
-    enemies.forEach((enemy, index) => {
-      let currentLeft = parseFloat(enemy.style.left);
-      currentLeft -= 0.5; // velocidade
-      enemy.style.left = currentLeft + 'vw';
+ function moveEnemies() {
+  for (let i = enemies.length - 1; i >= 0; i--) {
+    const enemy = enemies[i];
+    let currentLeft = parseFloat(enemy.style.left);
+    currentLeft -= 0.5;
+    enemy.style.left = currentLeft + 'vw';
 
-      if (currentLeft <= 12) {
-        atacar(enemy);
-        enemies.splice(index, 1);
-      }
+    // Ataque quando estiver a uma distância maior
+    if (currentLeft <= 14 && currentLeft > 12 && !attacking) {
+      atacar(enemy);
+      enemies.splice(i, 1);
+      continue;
+    }
 
-      if (currentLeft < -10) {
-        enemy.remove();
-        enemies.splice(index, 1);
-      }
-    });
+    if (currentLeft < -10) {
+      enemy.remove();
+      enemies.splice(i, 1);
+    }
   }
+}
+
 
   function playSocoSound() {
     const audio = new Audio('assets/soco.mp3');
@@ -231,26 +235,26 @@
     audio.play();
   }
 
-  function atacar(enemy) {
-    attacking = true;
-    usandoChute = !usandoChute;
+function atacar(enemy) {
+  attacking = true;
+  usandoChute = !usandoChute;
 
-    if (usandoChute) {
-      stickman.src = 'assets/chute1.png';
-      playChuteSound();
-    } else {
-      stickman.src = 'assets/soco1.png';
-      playSocoSound();
-    }
-
-    enemy.classList.add("fade");
-    setTimeout(() => enemy.remove(), 300);
-
-    setTimeout(() => {
-      stickman.src = 'assets/andar.gif';
-      attacking = false;
-    }, 200);
+  if (usandoChute) {
+    stickman.src = 'assets/chute1.png';
+    playChuteSound();
+  } else {
+    stickman.src = 'assets/soco1.png';
+    playSocoSound();
   }
+
+  enemy.classList.add("fade");
+  setTimeout(() => {
+    enemy.remove();
+    stickman.src = 'assets/andar.gif';
+    attacking = false;
+  }, 120); // Mais rápido
+}
+
 
   function gameLoop() {
     moveEnemies();
@@ -287,5 +291,6 @@
 
 </body>
 </html>
+
 
 
