@@ -203,15 +203,25 @@
     }
   }
 
- function moveEnemies() {
+function moveEnemies() {
+  const stickmanRect = stickman.getBoundingClientRect();
+
   for (let i = enemies.length - 1; i >= 0; i--) {
     const enemy = enemies[i];
     let currentLeft = parseFloat(enemy.style.left);
     currentLeft -= 0.5;
     enemy.style.left = currentLeft + 'vw';
 
-    // Ataque quando estiver a uma distância maior
-    if (currentLeft <= 14 && currentLeft > 12 && !attacking) {
+    const enemyRect = enemy.getBoundingClientRect();
+
+    const collided = (
+      enemyRect.left < stickmanRect.right &&
+      enemyRect.right > stickmanRect.left &&
+      enemyRect.bottom > stickmanRect.top &&
+      enemyRect.top < stickmanRect.bottom
+    );
+
+    if (collided && !attacking) {
       atacar(enemy);
       enemies.splice(i, 1);
       continue;
@@ -223,6 +233,8 @@
     }
   }
 }
+
+
 
 
   function playSocoSound() {
@@ -247,12 +259,16 @@ function atacar(enemy) {
     playSocoSound();
   }
 
-  enemy.classList.add("fade");
+  // Remove o inimigo instantaneamente
+enemy.classList.add("fade");
+setTimeout(() => enemy.remove(), 300);
+
+
+  // Só o reset da imagem do stickman pode continuar com delay
   setTimeout(() => {
-    enemy.remove();
     stickman.src = 'assets/andar.gif';
     attacking = false;
-  }, 120); // Mais rápido
+  }, 200);
 }
 
 
@@ -291,6 +307,7 @@ function atacar(enemy) {
 
 </body>
 </html>
+
 
 
 
