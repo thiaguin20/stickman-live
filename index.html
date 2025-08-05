@@ -43,23 +43,32 @@
       100% { transform: translateX(-100%); }
     }
 
-    .bridge-container {
-      position: absolute;
-      bottom: 25vh;
-      width: 200%;
-      height: 10vh;
-      z-index: 1;
-      display: flex;
-      animation: moveBridge 4s linear infinite;
-    }
+ .bridge-container {
+  position: absolute;
+  bottom: 25vh;
+  width: 300vw;
+  height: 80px; /* altura fixa */
+  z-index: 1;
+  display: flex;
+  animation: moveBridge 6s linear infinite;
+}
 
-    .bridge {
-      width: 100vw;
-      height: 10vh;
-      background: url('assets/ponte.png') no-repeat;
-      background-size: cover;
-      flex-shrink: 0;
-    }
+.bridge {
+  width: 100vw;
+  height: 100px;
+  background: url('assets/ponte.png') repeat-x;
+  background-size: auto;
+  flex-shrink: 0;
+}
+
+
+
+@keyframes moveBridge {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
+
 
     @keyframes moveBridge {
       0% { transform: translateX(0); }
@@ -69,7 +78,7 @@
     #stickman {
       position: absolute;
       bottom: 27vh;
-      left: 10vw;
+      left: 500px;
       width: 8vw;
       height: auto;
       z-index: 2;
@@ -97,8 +106,8 @@
 
     #score {
       position: absolute;
-      top: 5vh;
-      left: 3vw;
+      top: 150px;
+      left: 500px;
       color: white;
       font-size: 2.5vh;
       z-index: 3;
@@ -106,7 +115,7 @@
 
     #reward-bar {
       position: absolute;
-      top: 10vh;
+      top: 200px;
       left: 0;
       width: 100%;
       height: 4vh;
@@ -122,11 +131,13 @@
     #reward-bar span {
       display: inline-block;
       padding-left: 100%;
-      animation: scrollRewards 30s linear infinite;
+      animation: scrollRewards 15s linear infinite;
+      color: aliceblue;
+      font-size: 2.5vh;
     }
 
     #reward-bar span > img {
-      height: 2.5vh;
+      height: 4vh;
       vertical-align: middle;
       margin: 0 6px;
     }
@@ -139,7 +150,7 @@
 </head>
 <body>
 
-<audio id="bgMusic" src="assets/trilha.sonora.mp3" autoplay loop></audio>
+
 <script>
   window.onload = function () {
     const music = document.getElementById("bgMusic");
@@ -161,10 +172,12 @@
     </span>
   </div>
 
-  <div class="bridge-container">
-    <div class="bridge"></div>
-    <div class="bridge"></div>
-  </div>
+ <div class="bridge-container">
+  <div class="bridge"></div>
+  <div class="bridge"></div>
+  <div class="bridge"></div>
+</div>
+
 
   <img id="stickman" src="assets/andar.gif" alt="Stickman">
 </div>
@@ -249,3 +262,4 @@
 
 </body>
 </html>
+
