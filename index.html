@@ -259,7 +259,33 @@
 
   gameLoop();
 </script>
+<script>
+  const socket = new WebSocket('ws://localhost:8080');
+
+  socket.addEventListener('open', () => {
+    console.log('📡 Conectado ao servidor WebSocket');
+  });
+
+  socket.addEventListener('message', (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.type === 'zumbi') {
+      spawnEnemy(data.count);
+      derrotados += data.count;
+      scoreDisplay.textContent = `Derrotados: ${derrotados}`;
+    }
+  });
+
+  socket.addEventListener('error', (err) => {
+    console.error('Erro no WebSocket:', err);
+  });
+
+  socket.addEventListener('close', () => {
+    console.warn('WebSocket desconectado.');
+  });
+</script>
 
 </body>
 </html>
+
 
